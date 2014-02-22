@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html manifest="app.appcache">
+<head>
+<title>Soulodex</title>
+<meta name="description" content="Soulodex">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+<link rel="stylesheet" href="theme/app.min.css" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css" />
+<link href="theme/style.css" rel="stylesheet" type="text/css">
+  
+<!-- jQuery. -->
+<script src="http://code.jquery.com/jquery-1.10.1.js"></script>
+
+<!-- Application scripts. -->
+<script src="init.js"></script>
+
+<!-- jQuery Mobile. -->
+<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.js"></script>
+
+
+</head>
+<body class="ui-mobile-viewport ui-overlay-a">
+<!-- Alerts -->
+<div id="dialog" title="Soulodex Offline"><p></p></div>
+<!-- Home -->
+<div data-role="page" id="home" data-theme="a">
+ <div data-role="header" data-position="fixed" data-tap-toggle="false" ><!-- header -->
+    <h1>Soulodex</h1>
+   <a class="ui-btn-right" href="#profile" data-theme="a">Soulodex Offline</a> </div>
+  <div data-role="content"><!-- content -->
+	<h2>You are currently offline. Please connect to the internet to access the Soulodex most up-to-date data. Thank You</h2>
+  </div>
+      <div data-id="navigation" data-role="footer" data-position="fixed" data-tap-toggle="false" ></div>
+  </div>
+<!-- /page -->  
+
+</body>

@@ -1,0 +1,18 @@
+CACHE MANIFEST
+# 2014-02-10:v5
+
+CACHE:
+app.html
+app.js
+images/logo.png
+css/style.css
+css/app.mini.css
+
+# Require the user to be online.
+NETWORK:
+
+*
+
+# offline.html will be served in place of all other .html files
+FALLBACK:
+app.html /app/offline.html
