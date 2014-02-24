@@ -525,7 +525,6 @@ function updatePlaceTip(placeId_LS, tip, tipChannelsArr){
 					}
 				}
 				if(tip.isEvent == true || tip.isEvent == "true"){
-					console.log(element.tipCount);
 					if(!isNaN(element.eventCount) && typeof(element.eventCount) !== "undefined"){
 						element.eventCount = element.eventCount + 1;	
 					} else if(element.eventCount == "" || element.eventCount == null){
@@ -869,11 +868,11 @@ if(Kinvey.getActiveUser().usernameFixed !== true)  {
 		 	var output = ['<div data-role="navbar"><ul>'];
 
 			//push items onto the output array
-			output.push('<li><a href="#home" data-icon="home" data-theme="d">Dashboard</a></li>');
-			output.push('<li><a href="#channelPlaces" class="postTipLink" data-icon="search" data-theme="d">Post a Tip</a></li>');
+			output.push('<li><a href="#home" data-icon="home" data-theme="a">Dashboard</a></li>');
+			output.push('<li><a href="#channelPlaces" class="postTipLink" data-icon="search" data-theme="a">Post a Tip</a></li>');
 			output.push('<li><a href="#place" class="addPlaceLink" data-icon="add" data-theme="d">Add Place</a></li>');
-			output.push('<li><a href="#channelPlaces" class="allTipsLink" data-icon="search" data-theme="d">All Tips</a></li>');
-			output.push('<li><a href="#profile" class="profileLink" data-icon="gear" data-theme="d">Profile</a></li>');
+			output.push('<li><a href="#channelPlaces" class="allTipsLink" data-icon="search" data-theme="a">All Tips</a></li>');
+			output.push('<li><a href="#profile" class="profileLink" data-icon="gear" data-theme="a">Profile</a></li>');
 
 			output.push('</ul></div>');
 			
@@ -1503,11 +1502,11 @@ promise.then(function() {
 
 $('#startDate').blur(function(e){
 	var dateVal = $('#startDate').val();
-	var pattern = new RegExp(/(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/);
+	var pattern = new RegExp(/^\d{1,2}\/\d{1,2}\/\d{4}$/);
 	
 	if(!dateVal.match(pattern)){
 		var errMsg = {};
-		errMsg["name"] = 'Start Date is not valid format: mm/dd/yyyy hh:mm AM/PM';
+		errMsg["name"] = 'Start Date is not valid format: mm/dd/yyyy';
 		doc.trigger('error', errMsg);
 	   return false;
 	}
@@ -1516,15 +1515,97 @@ $('#startDate').blur(function(e){
 
 $('#endDate').blur(function(e){
 	var dateVal = $('#endDate').val();
-	var pattern = new RegExp(/(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/);
+	var pattern = new RegExp(/^\d{1,2}\/\d{1,2}\/\d{4}$/);
 	
 	if(!dateVal.match(pattern)){
 		var errMsg = {};
-		errMsg["name"] = 'Start Date is not valid format: mm/dd/yyyy hh:mm AM/PM';
+		errMsg["name"] = 'End Date is not valid format: mm/dd/yyyy';
 		doc.trigger('error', errMsg);
 	   return false;
 	}
 });
+$('#startTime').blur(function(e){
+	var dateVal = $('#startTime').val();
+	var pattern = new RegExp(/^\d{1,2}:\d{2}([ap]m)?$/);
+	
+	if(!dateVal.match(pattern)){
+		var errMsg = {};
+		errMsg["name"] = 'Start Time hh:mm AM/PM';
+		doc.trigger('error', errMsg);
+	   return false;
+	}
+});
+$('#endTime').blur(function(e){
+	var dateVal = $('#endTime').val();
+	var pattern = new RegExp(/^\d{1,2}:\d{2}([ap]m)?$/);
+	
+	if(!dateVal.match(pattern)){
+		var errMsg = {};
+		errMsg["name"] = 'End Time hh:mm AM/PM';
+		doc.trigger('error', errMsg);
+	   return false;
+	}
+});
+
+//To ISO String
+function toISO(date,time){
+	var iDate = new Date(date);
+	var hoursTwoDigits = "00";
+	var minsTwoDigits = "00";
+	
+	if(iDate != "Invalid Date"){
+		var year = iDate.getUTCFullYear();
+		var month = iDate.getUTCMonth() + 1;
+		var date = iDate.getUTCDate();
+		
+		if(month < 10){
+			month = '0' + month;	
+		}
+		if(time.search("pm") != -1){
+			var tmString = time.replace("pm", "");
+			var tmArr = tmString.split(":");
+			var hours = tmArr[0];
+			var mins = tmArr[1];
+			
+			if(hours < 12){
+				hours += 12;
+			}
+			if(hours < 10){
+				hoursTwoDigits = '0' + hours;	
+			}
+			if(mins < 10){
+				minsTwoDigits = '0' + mins;	
+			}
+	} else if (time.search("am") != -1){
+		var tmString = time.replace("am", "");
+		var tmArr = tmString.split(":");
+		var hours = tmArr[0];
+		var mins = tmArr[1];
+		
+		if(hours < 10){
+				hoursTwoDigits = '0' + hours;	
+			}
+		if(mins < 10){
+				minsTwoDigits = '0' + mins;	
+			}
+		
+	} else{
+		var tmArr = time.split(":");
+		hoursTwoDigits = tmArr[0];
+		minsTwoDigits = tmArr[1];
+	}
+	
+	var iso = 'ISODate(\"'+year + '-' + month + '-' + date + 'T' + hoursTwoDigits + ":" + minsTwoDigits + ':00.000Z")';
+	console.log(iso);
+		return  iso;
+
+	} else {
+		var errMsg = {};
+		errMsg["name"] = 'Start and/or End Date is not valid format: mm/dd/yyyy hh:mm AM/PM';
+		doc.trigger('error', errMsg);
+	   return false;
+	}
+}
 
 addTip.submit(function(e){
 	e.preventDefault();// Stop submit.
@@ -1537,24 +1618,24 @@ addTip.submit(function(e){
 		// Retrieve the form data
 	 	addTip.serializeArray().forEach(function(input) {
 			
-				if(input.value !== "" ){ 
+				if(input.value !== "" && input.name !== "endTime" && input.name !== "startTime"){ 
 					if(input.name !== "channel"){
 						if(input.name == "startDate" || input.name == "endDate"){							
-								var aDate = new Date(input.value);
-								if(aDate != "Invalid Date"){
-								var isoDateFormat = aDate.toISOString();
-								var stringDate = isoDateFormat.toString();
-								
-								dataObj[input.name] = 'ISODate(\"'+ stringDate + '\")';
-								console.log(input.name);
-								console.log(aDate);
-								console.log(dataObj[input.name]);
-								} else {
-									var errMsg = {};
-									errMsg["name"] = 'Start and/or End Date is not valid format: mm/dd/yyyy hh:mm AM/PM';
-									doc.trigger('error', errMsg);
-								   return false;
-								}
+								//var aDate = new Date(input.value);
+//								if(aDate != "Invalid Date"){
+//								var isoDateFormat = aDate.toISOString();
+//								var stringDate = isoDateFormat.toString();
+//								
+//								dataObj[input.name] = 'ISODate(\"'+ stringDate + '\")';
+//								console.log(input.name);
+//								console.log(aDate);
+//								console.log(dataObj[input.name]);
+//								} else {
+//									var errMsg = {};
+//									errMsg["name"] = 'Start and/or End Date is not valid format: mm/dd/yyyy hh:mm AM/PM';
+//									doc.trigger('error', errMsg);
+//								   return false;
+//								}
 						} else if(input.name == "isEvent"){
 							if(input.value == "true"){
 								dataObj[input.name] = new Boolean(true);
@@ -1587,24 +1668,11 @@ addTip.submit(function(e){
 		if($('#isEvent').val() == "true"){	
 			var startDateVal = $('#startDate').val();
 			var endDateVal = $('#endDate').val();
+			var startTime = $('#startTime').val();
+			var endTime = $('#endTime').val();
 		
-			var pattern = new RegExp(/(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/);
-			
-			if(!startDateVal.match(pattern)){
-				var errMsg = {};
-				errMsg["name"] = 'Start Date is not valid format: mm/dd/yyyy hh:mm AM/PM';
-				doc.trigger('error', errMsg);
-			   return false;
-			}
-			 
-		
-			var pattern = new RegExp(/(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/);
-			if(!endDateVal.match(pattern)){
-				var errMsg = {};
-				errMsg["name"] = 'Start Date is not valid format: mm/dd/yyyy hh:mm AM/PM';
-				doc.trigger('error', errMsg);
-			   return false;
-			}
+			dataObj["startDate"] = toISO(startDateVal, startTime);
+			dataObj["endDate"] = toISO(endDateVal, endTime);
 	
 		}
 			//Get Channels

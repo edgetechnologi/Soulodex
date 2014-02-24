@@ -8,21 +8,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- CSS -->
-
-<link rel="stylesheet" href="theme/app.min.css" />
- <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"/>
-<link rel="stylesheet" href="//code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.css" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.css" />
+<link rel="stylesheet" href="theme/app.css" />
 <link href="theme/style.css" rel="stylesheet" type="text/css"/>
+
 <!-- jQuery. -->
-<script src="http://code.jquery.com/jquery-1.10.1.js"></script>
-<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
 
 <!-- Application scripts. -->
 <script src="init.js"></script>
 
-
 <!-- jQuery Mobile. -->
-<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.js"></script>
+<script src="//code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.js"></script>
 
 
 </head>
@@ -37,7 +34,7 @@
   <div data-role="content"><!-- content -->
   		<div id="channelAccordion" name="channelAccordion" data-role="collapsible-set" class="ui-collapsible-set" data-theme="a"></div>
   </div>
-      <div data-id="navigation" data-role="footer" data-position="fixed" data-tap-toggle="false" ></div>
+      <div data-id="navigation" data-role="footer" data-theme="a" data-position="fixed" data-tap-toggle="false" ></div>
   </div>
   <!--Login Screen -->
 <div data-role="page" id="login" data-theme="a">
@@ -97,7 +94,7 @@
   	<ul data-role="listview" id="channelPlaceList" data-filter="true" data-filter-placeholder="Search" data-inset="true" data-theme="d" data-divider-theme="e"></ul>
   </div>
           <a class="more" data-role="button"  href="#channelPlaces">More</a>
-      <div data-id="navigation" data-role="footer" data-position="fixed" data-tap-toggle="false"  data-tap-toggle="false" ></div>
+      <div data-id="navigation" data-role="footer" data-theme="a" data-position="fixed" data-tap-toggle="false"  data-tap-toggle="false" ></div>
   </div>
   <!-- Place Details -->
 <div data-role="page" id="placeDetails" data-theme="a">
@@ -121,7 +118,7 @@
           <h3>Other Channels in this place</h3>
                 <ul data-role="listview" id="otherChannels" data-inset="true" data-divider-theme="e"></ul>
       </div>
-      <div data-id="navigation" data-role="footer" data-position="fixed" data-tap-toggle="false"  data-tap-toggle="false" ></div>
+      <div data-id="navigation" data-role="footer" data-theme="a" data-position="fixed" data-tap-toggle="false"  data-tap-toggle="false" ></div>
   </div>
 <!--Place Form -->
 <div data-role="page" id="place" data-theme="a">
@@ -500,7 +497,7 @@
       </div>
     </form>
   </div>
-    <div data-id="navigation" data-role="footer" data-position="fixed" data-tap-toggle="false" ></div>
+    <div data-id="navigation" data-role="footer" data-theme="a" data-position="fixed" data-tap-toggle="false" ></div>
 </div>
 <!-- Profile -->
 <div data-role="page" id="profile" data-theme="a">
@@ -519,7 +516,7 @@
                      
            <a href="#" data-role="button" data-icon="delete" data-theme="reset" class="logout">Logout</a>
       </div>
-      <div data-id="navigation" data-role="footer" data-position="fixed" data-tap-toggle="false"  class="ios red"></div>
+      <div data-id="navigation" data-role="footer" data-theme="a" data-position="fixed" data-tap-toggle="false"  class="ios red"></div>
   </div>
 <!-- Edit Profile -->
 <div data-role="page" id="editProfile" data-theme="a">
@@ -571,9 +568,13 @@
     <div class="isEvent" style="display: none" >
 
     <label for="startDate" class="ui-hidden-accessible">Start Date</label>
-    <input type="datetime-local" placeholder="Start Date Format mm/dd/YYYY hh:mm AM/PM" id="startDate" name="startDate" data-mini="true" title="Event Start Date: (format) mm/dd/YYYY hh:mm AM/PM" pattern="/(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/" required/>
+    <input type="text" placeholder="Start Date  mm/dd/YYYY" id="startDate" name="startDate" data-mini="true" title="Event Start Date mm/dd/YYYY" />
+    <label for="startTime" class="ui-hidden-accessible">Start Time</label>
+    <input type="time" placeholder="Start Time 11:25am" id="startTime" name="startTime" data-mini="true" title="Event Start Time  11:25am" data-inline="true"  required/>
     <label for="endDate" class="ui-hidden-accessible">End Date</label>
-    <input type="datetime-local" placeholder="End Date Format:mm/dd/YYYY hh:mm AM/PM" id="endDate" name="endDate" data-mini="true" title="Event End Date: (format) mm/dd/YYYY hh:mm AM/PM" pattern="/(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/" required/>
+    <input type="text" placeholder="End Date mm/dd/YYYY" id="endDate" name="endDate" data-mini="true" title="Event End Date mm/dd/YYYY hh:mm am/pm"  required/>
+    <label for="endTime" class="ui-hidden-accessible">End Time</label>
+    <input type="time" placeholder="End Time 11:25am" id="endTime" name="endTime" data-mini="true" title="Event End Time 11:25am" data-inline="true"  required/>
     </div>
     <div data-role="fieldcontain" data-theme="a">
         <fieldset data-role="controlgroup" data-theme="a">
@@ -589,7 +590,7 @@
           
   </form>
   </div>
-  <div data-id="navigation" data-role="footer" data-position="fixed" data-tap-toggle="false" ></div>
+  <div data-id="navigation" data-role="footer" data-theme="a" data-position="fixed" data-tap-toggle="false" ></div>
 </div>
 <!-- /page -->  
 

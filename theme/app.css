@@ -13,7 +13,7 @@
 /* Swatches */
 /* A
 -----------------------------------------------------------------------------------------------------------*/
-.ui-bar-a {
+.ui-bar-a, div.ui-footer.ui-bar-a > div > ul > li.ui-block-a > a, div.ui-footer.ui-bar-a.ui-footer-fixed > div > ul > li.ui-block-b > a, div.ui-footer.ui-bar-a.ui-footer-fixed > div > ul > li.ui-block-c > a, div.ui-footer.ui-bar-a.ui-footer-fixed > div > ul > li.ui-block-d > a, div.ui-footer.ui-bar-a.ui-footer-fixed > div > ul > li.ui-block-e > a {
 	border: 1px solid #000000 /*{a-bar-border}*/;
 	background: #000000 /*{a-bar-background-color}*/;
 	color: #ffffff /*{a-bar-color}*/;
