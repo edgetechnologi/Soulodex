@@ -1558,8 +1558,11 @@ function toISO(date,time){
 		var month = iDate.getUTCMonth() + 1;
 		var date = iDate.getUTCDate();
 		
-		if(month < 10){
+		if(month < 10 && month.length == 1){
 			month = '0' + month;	
+		}
+		if(date < 10 && date.length == 1){
+			date = '0' + date;	
 		}
 		if(time.search("pm") != -1){
 			var tmString = time.replace("pm", "");
@@ -1570,32 +1573,32 @@ function toISO(date,time){
 			if(hours < 12){
 				hours += 12;
 			}
-			if(hours < 10){
+			if(hours < 10 && hours.length == 1){
 				hoursTwoDigits = '0' + hours;	
 			}
-			if(mins < 10){
+			if(mins < 10 && mins.length == 1){
 				minsTwoDigits = '0' + mins;	
 			}
-	} else if (time.search("am") != -1){
-		var tmString = time.replace("am", "");
-		var tmArr = tmString.split(":");
-		var hours = tmArr[0];
-		var mins = tmArr[1];
-		
-		if(hours < 10){
-				hoursTwoDigits = '0' + hours;	
-			}
-		if(mins < 10){
-				minsTwoDigits = '0' + mins;	
-			}
-		
-	} else{
-		var tmArr = time.split(":");
-		hoursTwoDigits = tmArr[0];
-		minsTwoDigits = tmArr[1];
-	}
+		} else if (time.search("am") != -1){
+			var tmString = time.replace("am", "");
+			var tmArr = tmString.split(":");
+			var hours = tmArr[0];
+			var mins = tmArr[1];
+			
+			if(hours < 10 && hours.length == 1){
+					hoursTwoDigits = '0' + hours;	
+				}
+			if(mins < 10 && mins.length == 1){
+					minsTwoDigits = '0' + mins;	
+				}
+			
+		} else{
+			var tmArr = time.split(":");
+			hoursTwoDigits = tmArr[0];
+			minsTwoDigits = tmArr[1];
+		}
 	
-	var iso = 'ISODate(\"'+year + '-' + month + '-' + date + 'T' + hoursTwoDigits + ":" + minsTwoDigits + ':00.000Z")';
+	var iso = 'ISODate(\"'+ year + '-' + month + '-' + date + 'T' + hoursTwoDigits + ":" + minsTwoDigits + ':00.000Z")';
 	console.log(iso);
 		return  iso;
 
